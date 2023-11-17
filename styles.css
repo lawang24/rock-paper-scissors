@@ -1,0 +1,17 @@
+body {
+    margin : 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#results {
+    display: flex;
+    justify-content: space-around;
+}
+
+#inputs {
+    display:flex;
+    justify-content: center;
+}
