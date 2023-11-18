@@ -44,33 +44,40 @@ function playRound(playerSelection) {
     round_display.textContent = ++round
 
     // update images
-    p_img.setAttribute('src',move_img_url.get(playerSelection))
-    c_img.setAttribute('src',move_img_url.get(computerSelection))
+    p_img.setAttribute('src', move_img_url.get(playerSelection))
+    if (playerSelection === 'paper' || playerSelection === 'scissors')
+        p_img.style.transform = 'scaleX(-1)';
+    else
+        p_img.style.transform = null;
 
+    c_img.setAttribute('src', move_img_url.get(computerSelection))
+    c_img.style.transform = (computerSelection === 'rock') ? 'scaleX(-1)' : null;
 
-    // handle if game is over
-    if (round > 5) {
+    if (nPlayerWins == 5 || nComputerWins == 5) {
         endGame()
     }
+
+
 }
 
 function endGame() {
-    // choices.forEach((choice) => {
-    //     choice.remove()
-    // })
+
     const finishing_text = document.createElement('p')
 
     finishing_text.textContent = nPlayerWins > nComputerWins ? "Player Wins!"
         : nPlayerWins < nComputerWins ? "Computer Wins"
             : "Tie Game";
 
-    document.querySelector('#inputs').replaceChildren(finishing_text, start_button)
-    start_button.addEventListener('click', () => startGame())
+    finishing_text.style.fontSize = '40px';
+    inputs.replaceChildren(finishing_text, start_button)
+    inputs.setAttribute('style', 'justify-content: space-around;')
 }
 
 function startGame() {
     start_button.remove()
-    document.querySelector('#inputs').replaceChildren(...choices)
+    inputs.replaceChildren(...choices)
+    inputs.setAttribute('style', 'justify-content: space-between')
+
     nPlayerWins = nComputerWins = 0
     round = 1
     p_score_display.textContent = comp_score_display.textContent = round_display.textContent = 0
@@ -79,7 +86,7 @@ function startGame() {
 const choices = document.querySelectorAll('.game_move');
 choices.forEach((choice) => {
     console.log(choice.id)
-    choice.addEventListener('click', () => playRound(choice.id))
+    choice.addEventListener('click', (e) => playRound(choice.id))
 })
 
 let nPlayerWins = 0
@@ -89,8 +96,20 @@ let round = 1
 const p_score_display = document.querySelector('#p_score_display')
 const comp_score_display = document.querySelector('#comp_score_display')
 const round_display = document.querySelector('#round_number')
+
 const start_button = document.createElement('button')
+start_button.addEventListener('click', () => startGame())
+start_button.style.cssText = `
+height: 100px; 
+width: 200px;
+font-size: 30px;
+background-color: #fefae0;
+`;
 start_button.textContent = "Start Game"
+
+const inputs = document.querySelector('#inputs')
+
+
 
 const p_img = document.querySelector('#p_img')
 const c_img = document.querySelector('#c_img')
