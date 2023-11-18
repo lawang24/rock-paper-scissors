@@ -12,29 +12,39 @@
 
 <body>
 
-    <div id='#game_wrapper'>
+    <div id='game_wrapper'>
 
         <h1>ROCK-PAPER-SCISSORS</h1>
 
         <div id='results'>
             <div class='scoreboard'>
-                <p>Player</p>
-                <p id='p_score_display'>0</p>
+                <p>PLAYER</p>
+                <img class="placeholder_img" id = "p_img" src = './assets/question_mark.png'>
             </div>
-            <div>
-                <p>Round</p>
-                <p id='round_number'>0</p>
+
+            <div id="middle_panel">
+                <div id='round_wrap'>
+                    <p>ROUND</p>
+                    <p id='round_number'>1</p>
+                </div>
+                <div id="total_score">
+                    <p id='p_score_display'>0</p>
+                    <p>:</p>
+                    <p id='comp_score_display'>0</p>
+                </div>
             </div>
+
+
             <div class="scoreboard">
-                <p>Computer</p>
-                <p id='comp_score_display'>0</p>
+                <p>COMPUTER</p>
+                <img class="placeholder_img" id = "c_img" src = './assets/question_mark.png'>
             </div>
         </div>
 
         <section id='inputs'>
-            <button id='rock' class="game_move">Rock</button>
-            <button id='paper' class="game_move">Paper</button>
-            <button id='scissors' class="game_move">Scissors</button>
+            <button id='rock' class="game_move"></button>
+            <button id='paper' class="game_move"></button>
+            <button id='scissors' class="game_move"></button>
         </section>
 
 

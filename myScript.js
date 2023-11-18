@@ -1,3 +1,4 @@
+
 function getComputerChoice() {
     const validMoves = ['rock', 'paper', 'scissors']
     moveIndex = Math.floor(Math.random() * validMoves.length)
@@ -34,15 +35,21 @@ function playRound(playerSelection) {
     let computerSelection = getComputerChoice()
     result = returnPlayerResult(playerSelection, computerSelection)
 
+    // update texts
     if (result === "win") {
         p_score_display.textContent = ++nPlayerWins
     } else if (result == "lose") {
         comp_score_display.textContent = ++nComputerWins
     }
-
     round_display.textContent = ++round
 
-    if (round >= 5) {
+    // update images
+    p_img.setAttribute('src',move_img_url.get(playerSelection))
+    c_img.setAttribute('src',move_img_url.get(computerSelection))
+
+
+    // handle if game is over
+    if (round > 5) {
         endGame()
     }
 }
@@ -52,19 +59,20 @@ function endGame() {
     //     choice.remove()
     // })
     const finishing_text = document.createElement('p')
-    
-    finishing_text.textContent = nPlayerWins>nComputerWins ? "Player Wins!"
-        : nPlayerWins<nComputerWins? "Computer Wins" 
-        : "Tie Game";
 
-    document.querySelector('#inputs').replaceChildren(finishing_text,start_button)
+    finishing_text.textContent = nPlayerWins > nComputerWins ? "Player Wins!"
+        : nPlayerWins < nComputerWins ? "Computer Wins"
+            : "Tie Game";
+
+    document.querySelector('#inputs').replaceChildren(finishing_text, start_button)
     start_button.addEventListener('click', () => startGame())
 }
 
 function startGame() {
     start_button.remove()
     document.querySelector('#inputs').replaceChildren(...choices)
-    nPlayerWins = nComputerWins = round = 0
+    nPlayerWins = nComputerWins = 0
+    round = 1
     p_score_display.textContent = comp_score_display.textContent = round_display.textContent = 0
 }
 
@@ -76,11 +84,19 @@ choices.forEach((choice) => {
 
 let nPlayerWins = 0
 let nComputerWins = 0
-let round = 0
+let round = 1
 
 const p_score_display = document.querySelector('#p_score_display')
 const comp_score_display = document.querySelector('#comp_score_display')
 const round_display = document.querySelector('#round_number')
-
 const start_button = document.createElement('button')
 start_button.textContent = "Start Game"
+
+const p_img = document.querySelector('#p_img')
+const c_img = document.querySelector('#c_img')
+const move_img_url = new Map([
+    ['rock', './assets/rock.png'],
+    ['paper', './assets/paper.png'],
+    ['scissors', './assets/scissors.png']])
+
+
